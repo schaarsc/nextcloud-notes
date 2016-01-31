@@ -14,16 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.List;
 
 import it.niedermann.owncloud.notes.R;
 import it.niedermann.owncloud.notes.model.Item;
 import it.niedermann.owncloud.notes.model.ItemAdapter;
 import it.niedermann.owncloud.notes.model.Note;
-import it.niedermann.owncloud.notes.model.SectionItem;
-import it.niedermann.owncloud.notes.persistence.NoteSQLiteOpenHelper;
+import it.niedermann.owncloud.notes.persistence.SyncService;
 import it.niedermann.owncloud.notes.util.ICallback;
 
 public class NotesListViewActivity extends AppCompatActivity implements
@@ -43,7 +41,6 @@ public class NotesListViewActivity extends AppCompatActivity implements
     private ItemAdapter adapter = null;
     private ActionMode mActionMode;
     private SwipeRefreshLayout swipeRefreshLayout = null;
-    private NoteSQLiteOpenHelper db = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,21 +51,27 @@ public class NotesListViewActivity extends AppCompatActivity implements
         if (preferences.getBoolean(SettingsActivity.SETTINGS_FIRST_RUN, true)) {
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivityForResult(settingsIntent, server_settings);
-        }
 
+
+        } else {
+            SyncService.startActionSync(this);
+        }
         setContentView(R.layout.activity_notes_list_view);
 
-        // Display Data
-        db = new NoteSQLiteOpenHelper(this);
-        db.synchronizeWithServer();
-        setListView(db.getNotes());
+        // Prepare Adapter
+        adapter = new ItemAdapter(this);
+        listView = (RecyclerView) findViewById(R.id.list_view);
+        listView.setAdapter(adapter);
+        listView.setLayoutManager(new LinearLayoutManager(this));
+        ItemAdapter.setNoteClickListener(this);
 
         // Pull to Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefreshlayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                db.getNoteServerSyncHelper().addCallback(new ICallback() {
+                SyncService.startActionSync(NotesListViewActivity.this);
+                SyncService.addCallback(new ICallback() {
                     @Override
                     public void onFinish() {
                         swipeRefreshLayout.setRefreshing(false);
@@ -76,10 +79,9 @@ public class NotesListViewActivity extends AppCompatActivity implements
                         if (mActionMode != null) {
                             mActionMode.finish();
                         }
-                        setListView(db.getNotes());
+                        setListView(SyncService.getNotes(NotesListViewActivity.this));
                     }
                 });
-                db.synchronizeWithServer();
             }
         });
 
@@ -107,76 +109,7 @@ public class NotesListViewActivity extends AppCompatActivity implements
      */
     @SuppressWarnings("WeakerAccess")
     public void setListView(List<Note> noteList) {
-        List<Item> itemList = new ArrayList<>();
-        // #12 Create Sections depending on Time
-        // TODO Move to ItemAdapter?
-        boolean todaySet, yesterdaySet, weekSet, monthSet, earlierSet;
-        todaySet = yesterdaySet = weekSet = monthSet = earlierSet = false;
-        Calendar recent = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
-        Calendar yesterday = Calendar.getInstance();
-        yesterday.set(Calendar.DAY_OF_YEAR, yesterday.get(Calendar.DAY_OF_YEAR) - 1);
-        yesterday.set(Calendar.HOUR_OF_DAY, 0);
-        yesterday.set(Calendar.MINUTE, 0);
-        yesterday.set(Calendar.SECOND, 0);
-        yesterday.set(Calendar.MILLISECOND, 0);
-        Calendar week = Calendar.getInstance();
-        week.set(Calendar.DAY_OF_WEEK, week.getFirstDayOfWeek());
-        week.set(Calendar.HOUR_OF_DAY, 0);
-        week.set(Calendar.MINUTE, 0);
-        week.set(Calendar.SECOND, 0);
-        week.set(Calendar.MILLISECOND, 0);
-        Calendar month = Calendar.getInstance();
-        month.set(Calendar.DAY_OF_MONTH, 0);
-        month.set(Calendar.HOUR_OF_DAY, 0);
-        month.set(Calendar.MINUTE, 0);
-        month.set(Calendar.SECOND, 0);
-        month.set(Calendar.MILLISECOND, 0);
-        for (int i = 0; i < noteList.size(); i++) {
-            Note currentNote = noteList.get(i);
-            if (!todaySet && recent.getTimeInMillis() - currentNote.getModified().getTimeInMillis() >= 600000 && currentNote.getModified().getTimeInMillis() >= today.getTimeInMillis()) {
-                // < 10 minutes but after 00:00 today
-                if (i > 0) {
-                    //itemList.add(new SectionItem(getResources().getString(R.string.listview_updated_today)));
-                }
-                todaySet = true;
-            } else if (!yesterdaySet && currentNote.getModified().getTimeInMillis() < today.getTimeInMillis() && currentNote.getModified().getTimeInMillis() >= yesterday.getTimeInMillis()) {
-                // between today 00:00 and yesterday 00:00
-                if (i > 0) {
-                    itemList.add(new SectionItem(getResources().getString(R.string.listview_updated_yesterday)));
-                }
-                yesterdaySet = true;
-            } else if (!weekSet && currentNote.getModified().getTimeInMillis() < yesterday.getTimeInMillis() && currentNote.getModified().getTimeInMillis() >= week.getTimeInMillis()) {
-                // between yesterday 00:00 and start of the week 00:00
-                if (i > 0) {
-                    itemList.add(new SectionItem(getResources().getString(R.string.listview_updated_this_week)));
-                }
-                weekSet = true;
-            } else if (!monthSet && currentNote.getModified().getTimeInMillis() < week.getTimeInMillis() && currentNote.getModified().getTimeInMillis() >= month.getTimeInMillis()) {
-                // between start of the week 00:00 and start of the month 00:00
-                if (i > 0) {
-                    itemList.add(new SectionItem(getResources().getString(R.string.listview_updated_this_month)));
-                }
-                monthSet = true;
-            } else if (!earlierSet && currentNote.getModified().getTimeInMillis() < month.getTimeInMillis()) {
-                // before start of the month 00:00
-                if (i > 0) {
-                    itemList.add(new SectionItem(getResources().getString(R.string.listview_updated_earlier)));
-                }
-                earlierSet = true;
-            }
-            itemList.add(currentNote);
-        }
-
-        adapter = new ItemAdapter(itemList);
-        ItemAdapter.setNoteClickListener(this);
-        listView = (RecyclerView) findViewById(R.id.list_view);
-        listView.setAdapter(adapter);
-        listView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.fillItemList(noteList);
     }
 
     /**
@@ -242,19 +175,19 @@ public class NotesListViewActivity extends AppCompatActivity implements
                 if (resultCode == RESULT_OK) {
                     Note editedNote = (Note) data.getExtras().getSerializable(
                             NoteActivity.EDIT_NOTE);
-                    adapter.add(editedNote);
+                    adapter.editNote(editedNote);
                 }
             }
         } else if (requestCode == server_settings) {
             // Create new Instance with new URL and credentials
-            db = new NoteSQLiteOpenHelper(this);
-            db.getNoteServerSyncHelper().addCallback(new ICallback() {
+            // TODO see what happens to the service
+            SyncService.addCallback(new ICallback() {
                 @Override
                 public void onFinish() {
-                    setListView(db.getNotes());
+                    setListView(SyncService.getNotes(NotesListViewActivity.this));
                 }
             });
-            db.synchronizeWithServer();
+            SyncService.startActionSync(this);
         }
     }
 
@@ -305,8 +238,8 @@ public class NotesListViewActivity extends AppCompatActivity implements
     @Override
     public boolean onNoteLongClick(int position, View v) {
         boolean selected = adapter.select(position);
+        v.setSelected(selected);
         if (selected) {
-            v.setSelected(selected);
             mActionMode = startSupportActionMode(new MultiSelectedActionModeCallback());
             int checkedItemCount = adapter.getSelected().size();
             mActionMode.setTitle(String.valueOf(checkedItemCount)
@@ -345,14 +278,11 @@ public class NotesListViewActivity extends AppCompatActivity implements
                 case R.id.menu_delete:
                     List<Integer> selection = adapter.getSelected();
                     for (Integer i : selection) {
-                        Note note = (Note) adapter.getItem(i);
-                        db.deleteNoteAndSync(note.getId());
-                        // Not needed because of dbsync
-                        //adapter.remove(note);
+                        adapter.remove(adapter.getItem(i));
                     }
                     mode.finish(); // Action picked, so close the CAB
                     //after delete selection has to be cleared
-                    setListView(db.getNotes());
+                    setListView(SyncService.getNotes(NotesListViewActivity.this));
                     return true;
                 default:
                     return false;
