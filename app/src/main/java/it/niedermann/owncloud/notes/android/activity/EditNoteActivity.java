@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
@@ -106,6 +107,7 @@ public class EditNoteActivity extends AppCompatActivity {
         if (ab != null) {
             ab.setSubtitle(getResources().getString(R.string.action_edit_saving));
         }
+        note.setModified(Calendar.getInstance());
         note.setContent(((EditText) findViewById(R.id.editContent)).getText().toString());
         SyncService.addCallback(new ICallback() {
             @Override
