@@ -14,6 +14,6 @@ public class NoteTest extends TestCase {
         CloudNote note = new CloudNote(0, Calendar.getInstance(), "#Title", "", false, null, null);
         assertTrue("Title".equals(note.getTitle()));
         note.setTitle("* Aufzählung");
-        assertTrue("Aufzählung".equals(note.getTitle()));
+        assertTrue("Aufzählungggggg".equals(note.getTitle()));
     }
 }
