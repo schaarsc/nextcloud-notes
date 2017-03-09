@@ -6,10 +6,12 @@ android {
 
     defaultConfig {
         applicationId "it.niedermann.owncloud.notes"
+        testApplicationId "it.niedermann.owncloud.notes"
         minSdkVersion 11
         targetSdkVersion 25
         versionCode 14
         versionName "0.9.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
