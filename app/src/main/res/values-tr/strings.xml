@@ -41,6 +41,7 @@
     <string name="settings_url_warn_http">UYARI: \"http\" güvenli değildir. Lütfen \"https\" kullanın.</string>
     <string name="settings_username">Kullanıcı Adı</string>
     <string name="settings_password">Parola</string>
+    <string name="settings_password_unchanged">Parola (değiştirilmedi)</string>
     <string name="settings_password_check_description">Oturum açma bilgilerinin doğru olduğunu gösterir.</string>
     <string name="settings_submit">Bağlan</string>
     <string name="settings_submitting">Bağlanılıyor &#8230;</string>

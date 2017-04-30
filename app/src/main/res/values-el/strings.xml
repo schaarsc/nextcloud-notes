@@ -54,6 +54,7 @@
     <!-- Error -->
     <string name="error_sync">Αποτυχία συγχρονισμού: %1$s</string>
     <string name="error_invalid_login">Μη έγκυρη είσοδος: %1$s</string>
+    <string name="error_json">Είναι η εφαρμογή Σημειώσεις ενεργοποιημένη στον εξυπηρετητή Nextcloud;</string>
     <string name="error_io">η σύνδεση διακομιστή είναι προβληματική</string>
     <string name="error_no_network">δεν υπάρχει σύνδεση δικτύου</string>
     <string name="error_server">Σφάλματα URL/Διακομιστή</string>
@@ -65,16 +66,23 @@
 
     <!-- About -->
     <string name="about_version_title">Έκδοση</string>
+    <string name="about_version">Προς το παρόν χρησιμοποιείτε <strong>%1$s</strong></string>
     <string name="about_maintainer_title">Συντηρητής</string>
     <string name="about_developers_title">Προγραμματιστές</string>
     <string name="about_translators_title">Μεταφραστές</string>
+    <string name="about_translators_transifex">Nextcloud κοινότητα στο <a href=\"%1$s\">Transifex</a></string>
     <string name="about_testers_title">Δοκιμαστές</string>
     <string name="about_source_title">Πηγαίος κώδικας</string>
+    <string name="about_source">Το project φιλοξενείται στο Github: <a href=\"%1$s\">%1$s</a></string>
     <string name="about_issues_title">Θεματα</string>
+    <string name="about_issues">Μπορείτε να αναφέρετε σφάλματα, να προτείνετε βελτιώσεις και να κάνετε αιτήματα χαρακτηριστικών στο Github <a href=\"%1$s\">%1$s</a></string>
+    <string name="about_translate_title">Μετάφρασε</string>
+    <string name="about_translate">Λάβε μέρος στην ομάδα του Nextcloud στο Transifex και βοήθησε μας να μεταφράσουμε αυτή την εφαρμογή: <a href=\"%1$s\">%1$s</a></string>
     <string name="about_app_license_title">Άδεια χρήσης εφαρμογής</string>
     <string name="about_app_license">Αυτή η εφαρμογή υπόκεινται στην άδεια χρήσης GNU GENERAL PUBLIC LICENSE v3+.</string>
     <string name="about_app_license_button">Προβολή άδειας χρήσης</string>
     <string name="about_icons_disclaimer_title">Εικονίδια</string>
+    <string name="about_icons_disclaimer"><p>Το προτότυπο εικονίδιο δημιουργήθηκε από %1$s</p><p>Όλα τα υπόλοιπα εικονίδια που χρησιμοποιούνται από αυτή την εφαρμογή είναι τα <a href=\"https://materialdesignicons.com/\">Material Design Icons</a>, δημιουργημένα από την Google Inc. και είναι αδιοδοτημένα από μία Creative Commons Άδεια.</string>
     <string name="about_credits_tab_title">Μνεία</string>
     <string name="about_contribution_tab_title">Συνεισφορά</string>
     <string name="about_license_tab_title">Άδεια χρήσης</string>
@@ -85,4 +93,9 @@
     <!-- Shortcuts -->
     <string name="shortcut_create_long">Δημιουργία νέας σημείωσης</string>
 
-    </resources>
+    <!-- Plurals -->
+    <plurals name="ab_selected">
+        <item quantity="one">%d επιλέχτηκε</item>
+        <item quantity="other">%d επιλέχτηκαν</item>
+    </plurals>
+</resources>

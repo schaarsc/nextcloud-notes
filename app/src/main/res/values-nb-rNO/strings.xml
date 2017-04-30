@@ -41,6 +41,7 @@
     <string name="settings_url_warn_http">ADVARSEL: \"http\" er usikker. Vennligst bruk \"https\".</string>
     <string name="settings_username">Brukernavn</string>
     <string name="settings_password">Passord</string>
+    <string name="settings_password_unchanged">Passord (ikke endret)</string>
     <string name="settings_password_check_description">Vis hvis påloggingsinformasjon er riktig.</string>
     <string name="settings_submit">Koble til</string>
     <string name="settings_submitting">Kobler &#8230;</string>
@@ -57,7 +58,7 @@
     <string name="error_json">er Notis-programmet aktivert på tjeneren?</string>
     <string name="error_io">tilkoblingen til tjener er avbrutt</string>
     <string name="error_no_network">Ingen nettverkstilkobling</string>
-    <string name="error_server">URL/Tjener er feil</string>
+    <string name="error_server">URL/Tjener har feil</string>
     <string name="error_url_malformed">Feil på tjeneradresse</string>
     <string name="error_username_password_invalid">Feil brukernavn eller passord</string>
 

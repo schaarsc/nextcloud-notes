@@ -41,6 +41,7 @@
     <string name="settings_url_warn_http">OSTRZEŻENIE: \"http\" nie jest bezpieczne. Proszę użyć \"https\".</string>
     <string name="settings_username">Nazwa użytkownika</string>
     <string name="settings_password">Hasło</string>
+    <string name="settings_password_unchanged">Hasło (nie zmienione)</string>
     <string name="settings_password_check_description">Pokazuje czy dane dostępowe są poprawne.</string>
     <string name="settings_submit">Połącz</string>
     <string name="settings_submitting">Łączenie &#8230;</string>

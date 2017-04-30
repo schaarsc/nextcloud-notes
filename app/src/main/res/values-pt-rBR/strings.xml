@@ -41,6 +41,7 @@
     <string name="settings_url_warn_http">AVISO: \"http\" é inseguro. Utilize \"https\".</string>
     <string name="settings_username">Nome do usuário</string>
     <string name="settings_password">Senha</string>
+    <string name="settings_password_unchanged">Senha (não alterada)</string>
     <string name="settings_password_check_description">Mostra se as credenciais estão corretas.</string>
     <string name="settings_submit">Conectar</string>
     <string name="settings_submitting">Conectando &#8230;</string>
@@ -54,7 +55,7 @@
     <!-- Error -->
     <string name="error_sync">A sincronização falhou: %1$s</string>
     <string name="error_invalid_login">Login inválido: %1$s</string>
-    <string name="error_json">A aplicação Notes está ativada no servidor?</string>
+    <string name="error_json">O aplicativo Notes está ativado no servidor?</string>
     <string name="error_io">não existe conexão com o servidor </string>
     <string name="error_no_network">não existe conexão de rede</string>
     <string name="error_server">URL do servidor tem erros</string>
@@ -79,7 +80,7 @@
     <string name="about_translate_title">Traduzir</string>
     <string name="about_translate">Junte-se à equipe do Nextcloud no Transifex e ajude-nos a traduzir este aplicativo: &lt;a href=\"%1$s\">%1$s&lt;/a></string>
     <string name="about_app_license_title">Licença do aplicativo</string>
-    <string name="about_app_license">Esta aplicação está licenciada sob a GNU GENERAL PUBLIC LICENSE v3+.</string>
+    <string name="about_app_license">Este aplicativo está licenciado sob a GNU GENERAL PUBLIC LICENSE v3+.</string>
     <string name="about_app_license_button">Ver licença</string>
     <string name="about_icons_disclaimer_title">Ícones</string>
     <string name="about_icons_disclaimer">&lt;p>Ícone original feito por %1$s&lt;/p>&lt;p>Todos os outros ícones usados por este aplicativo são &lt;a href=\"https://materialdesignicons.com/\">Material Design Icons&lt;/a> feitos pela Google Inc. e licenciada sob uma licença Creative Commons.&lt;/p></string>

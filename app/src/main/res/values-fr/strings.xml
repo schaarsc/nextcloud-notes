@@ -41,6 +41,7 @@
     <string name="settings_url_warn_http">ATTENTION : "http" n\'est pas sécurisé. Veuillez utiliser "https".</string>
     <string name="settings_username">Identifiant</string>
     <string name="settings_password">Mot de passe</string>
+    <string name="settings_password_unchanged">Mot de passe (non modifié)</string>
     <string name="settings_password_check_description">Visible si les informations d\'authentification sont correctes.</string>
     <string name="settings_submit">Se connecter</string>
     <string name="settings_submitting">Connexion en cours&#8230;</string>

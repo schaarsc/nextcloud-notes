@@ -54,6 +54,7 @@
     <!-- Error -->
     <string name="error_sync">Sincronizzazione non riuscita: %1$s</string>
     <string name="error_invalid_login">Accesso non valido: %1$s</string>
+    <string name="error_json">L\'applicazione Notes è stata attivata sul server?</string>
     <string name="error_io">la connessione al server è interrotta</string>
     <string name="error_no_network">nessuna connessione di rete</string>
     <string name="error_server">Errore URL/Server</string>
@@ -88,6 +89,9 @@
 
     <string name="widget_all_notes_title">Tutte le note</string>
     <string name="widget_single_note_title">Nota singola</string>
+
+    <!-- Shortcuts -->
+    <string name="shortcut_create_long">Crea una nuova nota</string>
 
     <!-- Plurals -->
     <plurals name="ab_selected">

@@ -41,6 +41,7 @@
     <string name="settings_url_warn_http">WAARSCHUWING: \"http\" is niet veilig. Gebruik \"https\".</string>
     <string name="settings_username">Gebruikersnaam</string>
     <string name="settings_password">Wachtwoord</string>
+    <string name="settings_password_unchanged">Wachtwoord (niet gewijzigd)</string>
     <string name="settings_password_check_description">Aanmeldgegevens op juistheid controleren.</string>
     <string name="settings_submit">Verbinden</string>
     <string name="settings_submitting">Verbinden&#160;&#8230;</string>

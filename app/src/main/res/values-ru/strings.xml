@@ -41,6 +41,7 @@
     <string name="settings_url_warn_http">ВНИМАНИЕ: "http" ненадёжен. Пожалуйста, используйте "https"</string>
     <string name="settings_username">Логин</string>
     <string name="settings_password">Пароль</string>
+    <string name="settings_password_unchanged">Пароль (не изменён)</string>
     <string name="settings_password_check_description">Показывает, если учётные данные являются правильными.</string>
     <string name="settings_submit">Соединить</string>
     <string name="settings_submitting">Соединение …</string>
